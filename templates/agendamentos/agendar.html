@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Agendamento</title>
+</head>
+
+<body>
+
+    <h1>Agendar Horário</h1>
+
+    {% if erro %}
+
+    <p style="color:red;">
+        {{ erro }}
+    </p>
+
+{% endif %}
+
+    <form method="POST">
+
+        {% csrf_token %}
+
+        {{ form.as_p }}
+
+        <button type="submit">
+            Agendar
+        </button>
+
+    </form>
+
+</body>
+
+</html>
