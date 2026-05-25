@@ -4,10 +4,12 @@ from django.shortcuts import render, redirect
 from django.db.models import Q
 
 from .forms import AgendamentoForm
-from .models import Agendamento
 from .utils import gerar_horarios
 from django.http import JsonResponse
-
+from .models import (
+    Agendamento,
+    Cliente
+)
 
 def agendar(request):
 
@@ -42,7 +44,11 @@ def agendar(request):
 
         if form.is_valid():
 
-            cliente = form.cleaned_data['cliente']
+            nome = form.cleaned_data['nome']
+
+            telefone = form.cleaned_data['telefone']
+
+            email = form.cleaned_data['email']
 
             servico = form.cleaned_data['servico']
 
@@ -79,6 +85,19 @@ def agendar(request):
                 )
 
             else:
+
+                cliente, criado = Cliente.objects.get_or_create(
+
+                    telefone=telefone,
+
+                    defaults={
+
+                        'nome': nome,
+
+                        'email': email
+
+                    }
+                )
 
                 Agendamento.objects.create(
                     cliente=cliente,

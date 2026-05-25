@@ -1,12 +1,20 @@
 from django import forms
 
-from .models import Cliente, Servico
+from .models import Servico
 
 
 class AgendamentoForm(forms.Form):
 
-    cliente = forms.ModelChoiceField(
-        queryset=Cliente.objects.all()
+    nome = forms.CharField(
+        max_length=100
+    )
+
+    telefone = forms.CharField(
+        max_length=20
+    )
+
+    email = forms.EmailField(
+        required=False
     )
 
     servico = forms.ModelChoiceField(

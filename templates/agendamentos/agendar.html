@@ -1,75 +1,182 @@
+{% load static %}
+
 <!DOCTYPE html>
+
 <html lang="pt-br">
 
 <head>
 
     <meta charset="UTF-8">
 
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
     <title>Agendamento</title>
+
+    <link
+        rel="stylesheet"
+        href="{% static 'css/agendamento.css' %}"
+    >
 
 </head>
 
 <body>
 
-    <h1>Agendar Horário</h1>
+    <div class="container">
 
-    {% if erro %}
+        <div class="left">
 
-        <p style="color:red;">
-            {{ erro }}
-        </p>
+            <div class="brand">
+                Eduarda Costa <span>Nail Design</span>
+            </div>
 
-    {% endif %}
+            <div class="hero">
 
-    <form method="POST">
+                <h1>
+                    Selecione um serviço e Agende seu horário
+                    com elegância.
+                </h1>
 
-        {% csrf_token %}
+                <p>
+                    Escolha o melhor horário
+                    para seu atendimento e
+                    tenha uma experiência
+                    premium desde o primeiro clique.
+                </p>
 
-        {{ form.cliente.label_tag }}
-        {{ form.cliente }}
+            </div>
 
-        <br><br>
+        </div>
 
-        {{ form.servico.label_tag }}
-        {{ form.servico }}
+        <div class="right">
 
-        <br><br>
+            <h2 class="title">
+                Agendamento
+            </h2>
 
-        {{ form.data.label_tag }}
-        {{ form.data }}
+            <p class="subtitle">
 
-        <br><br>
+                Escolha a data e visualize
+                os horários disponíveis
+                automaticamente.
 
-        {{ form.horario.label_tag }}
+            </p>
 
-        <select name="horario" id="id_horario">
+            {% if erro %}
 
-            <option value="">
-                Selecione um horário
-            </option>
+                <div class="erro">
+                    {{ erro }}
+                </div>
 
-        </select>
+            {% endif %}
 
-        <br><br>
+            <form method="POST">
 
-        <button type="submit">
-            Agendar
-        </button>
+                {% csrf_token %}
 
-    </form>
+                <div class="field">
+
+    <label>
+        Nome completo
+    </label>
+
+    {{ form.nome }}
+
+</div>
+
+<div class="field">
+
+    <label>
+        WhatsApp
+    </label>
+
+    {{ form.telefone }}
+
+</div>
+
+<div class="field">
+
+    <label>
+        Email
+    </label>
+
+    {{ form.email }}
+
+</div>
+
+                <div class="field">
+
+                    <label>
+                        Serviço
+                    </label>
+
+                    {{ form.servico }}
+
+                </div>
+
+                <div class="field">
+
+                    <label>
+                        Data
+                    </label>
+
+                    {{ form.data }}
+
+                </div>
+
+                <div class="field">
+
+                    <label>
+                        Horário
+                    </label>
+
+                    <select
+                        name="horario"
+                        id="id_horario"
+                    >
+
+                        <option>
+
+                            Selecione um horário
+
+                        </option>
+
+                    </select>
+
+                </div>
+
+                <button type="submit">
+
+                    Confirmar Agendamento
+
+                </button>
+
+            </form>
+
+            <div class="footer">
+
+                Atendimento premium •
+                Eduarda Costa Nail Design
+
+            </div>
+
+        </div>
+
+    </div>
 
     <script>
 
-        const campoData = document.getElementById(
-            'id_data'
-        )
+        const campoData =
+            document.getElementById('id_data')
 
-        const selectHorario = document.getElementById(
-            'id_horario'
-        )
+        const selectHorario =
+            document.getElementById('id_horario')
 
         campoData.addEventListener(
             'change',
+
             async function () {
 
                 const data = this.value
@@ -78,7 +185,8 @@
                     `/agendar/horarios/?data=${data}`
                 )
 
-                const horarios = await response.json()
+                const horarios =
+                    await response.json()
 
                 selectHorario.innerHTML = ''
 
