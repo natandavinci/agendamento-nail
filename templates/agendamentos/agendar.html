@@ -2,8 +2,11 @@
 <html lang="pt-br">
 
 <head>
+
     <meta charset="UTF-8">
+
     <title>Agendamento</title>
+
 </head>
 
 <body>
@@ -12,23 +15,98 @@
 
     {% if erro %}
 
-    <p style="color:red;">
-        {{ erro }}
-    </p>
+        <p style="color:red;">
+            {{ erro }}
+        </p>
 
-{% endif %}
+    {% endif %}
 
     <form method="POST">
 
         {% csrf_token %}
 
-        {{ form.as_p }}
+        {{ form.cliente.label_tag }}
+        {{ form.cliente }}
+
+        <br><br>
+
+        {{ form.servico.label_tag }}
+        {{ form.servico }}
+
+        <br><br>
+
+        {{ form.data.label_tag }}
+        {{ form.data }}
+
+        <br><br>
+
+        {{ form.horario.label_tag }}
+
+        <select name="horario" id="id_horario">
+
+            <option value="">
+                Selecione um horário
+            </option>
+
+        </select>
+
+        <br><br>
 
         <button type="submit">
             Agendar
         </button>
 
     </form>
+
+    <script>
+
+        const campoData = document.getElementById(
+            'id_data'
+        )
+
+        const selectHorario = document.getElementById(
+            'id_horario'
+        )
+
+        campoData.addEventListener(
+            'change',
+            async function () {
+
+                const data = this.value
+
+                const response = await fetch(
+                    `/agendar/horarios/?data=${data}`
+                )
+
+                const horarios = await response.json()
+
+                selectHorario.innerHTML = ''
+
+                if (horarios.length === 0) {
+
+                    selectHorario.innerHTML =
+                        '<option>Sem horários disponíveis</option>'
+
+                    return
+                }
+
+                horarios.forEach(horario => {
+
+                    const option =
+                        document.createElement('option')
+
+                    option.value = horario
+
+                    option.textContent = horario
+
+                    selectHorario.appendChild(option)
+
+                })
+
+            }
+        )
+
+    </script>
 
 </body>
 

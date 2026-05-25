@@ -1,27 +1,24 @@
 from django import forms
 
-from .models import Agendamento
+from .models import Cliente, Servico
 
 
-class AgendamentoForm(forms.ModelForm):
+class AgendamentoForm(forms.Form):
 
-    class Meta:
+    cliente = forms.ModelChoiceField(
+        queryset=Cliente.objects.all()
+    )
 
-        model = Agendamento
+    servico = forms.ModelChoiceField(
+        queryset=Servico.objects.all()
+    )
 
-        fields = [
-            'cliente',
-            'servico',
-            'data_inicio',
-        ]
+    data = forms.DateField(
+        widget=forms.DateInput(
+            attrs={'type': 'date'}
+        )
+    )
 
-        widgets = {
-
-            'data_inicio': forms.DateTimeInput(
-                attrs={'type': 'datetime-local'}
-            ),
-
-            'data_fim': forms.DateTimeInput(
-                attrs={'type': 'datetime-local'}
-            ),
-        }
+    horario = forms.ChoiceField(
+        choices=[]
+    )

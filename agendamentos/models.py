@@ -14,6 +14,7 @@ class Servico(models.Model):
     )
 
     duracao = models.IntegerField(
+        default=120,
         help_text='Duração em minutos'
     )
 
