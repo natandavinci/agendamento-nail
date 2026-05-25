@@ -19,7 +19,10 @@
         rel="stylesheet"
         href="{% static 'css/agendamento.css' %}"
     >
-
+<link
+    rel="stylesheet"
+    href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css"
+>
 </head>
 
 <body>
@@ -83,6 +86,8 @@
     </label>
 
     {{ form.nome }}
+    {{ form.nome.errors }}
+
 
 </div>
 
@@ -93,6 +98,7 @@
     </label>
 
     {{ form.telefone }}
+    {{ form.telefone.errors }}
 
 </div>
 
@@ -103,6 +109,7 @@
     </label>
 
     {{ form.email }}
+    {{ form.email.errors }}
 
 </div>
 
@@ -113,6 +120,7 @@
                     </label>
 
                     {{ form.servico }}
+                    {{ form.servico.errors }}
 
                 </div>
 
@@ -122,7 +130,13 @@
                         Data
                     </label>
 
-                    {{ form.data }}
+                    <input
+                        type="text"
+                        name="data"
+                        id="id_data"
+                        required
+                    >
+                    {{ form.data.errors }}
 
                 </div>
 
@@ -135,6 +149,7 @@
                     <select
                         name="horario"
                         id="id_horario"
+                        required
                     >
 
                         <option>
@@ -144,6 +159,7 @@
                         </option>
 
                     </select>
+                     {{ form.horario.errors }}
 
                 </div>
 
@@ -168,53 +184,78 @@
 
     <script>
 
-        const campoData =
-            document.getElementById('id_data')
+    const selectHorario =
+        document.getElementById('id_horario')
 
-        const selectHorario =
-            document.getElementById('id_horario')
+    async function carregarHorarios(data) {
 
-        campoData.addEventListener(
-            'change',
-
-            async function () {
-
-                const data = this.value
-
-                const response = await fetch(
-                    `/agendar/horarios/?data=${data}`
-                )
-
-                const horarios =
-                    await response.json()
-
-                selectHorario.innerHTML = ''
-
-                if (horarios.length === 0) {
-
-                    selectHorario.innerHTML =
-                        '<option>Sem horários disponíveis</option>'
-
-                    return
-                }
-
-                horarios.forEach(horario => {
-
-                    const option =
-                        document.createElement('option')
-
-                    option.value = horario
-
-                    option.textContent = horario
-
-                    selectHorario.appendChild(option)
-
-                })
-
-            }
+        const response = await fetch(
+            `/agendar/horarios/?data=${data}`
         )
 
-    </script>
+        const horarios =
+            await response.json()
+
+        selectHorario.innerHTML = ''
+
+        if (horarios.length === 0) {
+
+            selectHorario.innerHTML =
+                '<option>Sem horários disponíveis</option>'
+
+            return
+        }
+
+        horarios.forEach(horario => {
+
+            const option =
+                document.createElement('option')
+
+            option.value = horario
+
+            option.textContent = horario
+
+            selectHorario.appendChild(option)
+
+        })
+    }
+
+    async function iniciarCalendario() {
+
+        const response = await fetch(
+            '/agendar/datas-bloqueadas/'
+        )
+
+        const datasBloqueadas =
+            await response.json()
+
+        flatpickr('#id_data', {
+
+            dateFormat: 'Y-m-d',
+
+            minDate: 'today',
+
+            disable: datasBloqueadas,
+
+            locale: {
+                firstDayOfWeek: 1
+            },
+
+            onChange: function (
+                selectedDates,
+                dateStr
+            ) {
+
+                carregarHorarios(dateStr)
+            }
+        })
+    }
+
+    iniciarCalendario()
+
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 
 </body>
 

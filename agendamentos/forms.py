@@ -1,4 +1,8 @@
+import re
+
 from django import forms
+
+from django.core.exceptions import ValidationError
 
 from .models import Servico
 
@@ -14,7 +18,7 @@ class AgendamentoForm(forms.Form):
     )
 
     email = forms.EmailField(
-        required=False
+        required=True
     )
 
     servico = forms.ModelChoiceField(
@@ -30,3 +34,45 @@ class AgendamentoForm(forms.Form):
     horario = forms.ChoiceField(
         choices=[]
     )
+
+    # VALIDAÇÃO NOME
+
+    def clean_nome(self):
+
+        nome = self.cleaned_data['nome']
+
+        nome = nome.strip()
+
+        if len(nome.split()) < 2:
+
+            raise ValidationError(
+                'Digite nome e sobrenome.'
+            )
+
+        if len(nome) < 5:
+
+            raise ValidationError(
+                'Nome muito curto.'
+            )
+
+        return nome
+
+    # VALIDAÇÃO TELEFONE
+
+    def clean_telefone(self):
+
+        telefone = self.cleaned_data['telefone']
+
+        telefone = re.sub(
+            r'\D',
+            '',
+            telefone
+        )
+
+        if len(telefone) not in [10, 11]:
+
+            raise ValidationError(
+                'Telefone inválido.'
+            )
+
+        return telefone

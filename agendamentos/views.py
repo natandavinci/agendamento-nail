@@ -1,14 +1,15 @@
 from datetime import datetime, timedelta
-
 from django.shortcuts import render, redirect
 from django.db.models import Q
-
 from .forms import AgendamentoForm
-from .utils import gerar_horarios
 from django.http import JsonResponse
 from .models import (
     Agendamento,
     Cliente
+)
+from .utils import (
+    gerar_horarios,
+    obter_datas_lotadas
 )
 
 def agendar(request):
@@ -107,7 +108,26 @@ def agendar(request):
                     status='CONFIRMADO'
                 )
 
-                return redirect('/agendar/')
+                return render(
+
+                    request,
+
+                    'agendamentos/confirmacao.html',
+
+                    {
+
+                        'cliente': cliente,
+
+                        'servico': servico,
+
+                        'data_inicio': data_inicio,
+                        
+                        'endereco': (
+                            'Rua Antonio Alves Costa, 525 - Zezinho Costa - Várzea Alegre (CE)'
+                        )
+
+                    }
+                )
 
     return render(
         request,
@@ -160,5 +180,14 @@ def horarios_disponiveis(request):
 
     return JsonResponse(
         horarios_livres,
+        safe=False
+    )
+
+def datas_bloqueadas(request):
+
+    datas = obter_datas_lotadas()
+
+    return JsonResponse(
+        datas,
         safe=False
     )

@@ -26,3 +26,46 @@ def gerar_horarios(data):
         ]
 
     return horarios
+
+from datetime import timedelta
+
+from .models import Agendamento
+
+
+def obter_datas_lotadas():
+
+    hoje = datetime.now().date()
+
+    datas_lotadas = []
+
+    for i in range(60):
+
+        data = hoje + timedelta(days=i)
+
+        weekday = data.weekday()
+
+        # Domingo
+        if weekday == 6:
+
+            datas_lotadas.append(
+                data.strftime('%Y-%m-%d')
+            )
+
+            continue
+
+        horarios = gerar_horarios(data)
+
+        quantidade_maxima = len(horarios)
+
+        agendamentos = Agendamento.objects.filter(
+            data_inicio__date=data,
+            status='CONFIRMADO'
+        ).count()
+
+        if agendamentos >= quantidade_maxima:
+
+            datas_lotadas.append(
+                data.strftime('%Y-%m-%d')
+            )
+
+    return datas_lotadas

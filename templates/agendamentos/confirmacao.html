@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+
+<html lang="pt-br">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>
+        Agendamento confirmado
+    </title>
+
+    <style>
+
+        body{
+
+            margin:0;
+
+            padding:40px;
+
+            background:#F2EDE3;
+
+            font-family:Arial;
+
+            display:flex;
+
+            justify-content:center;
+
+            align-items:center;
+
+            min-height:100vh;
+        }
+
+        .card{
+
+            width:100%;
+
+            max-width:500px;
+
+            background:white;
+
+            border-radius:24px;
+
+            padding:40px;
+
+            box-shadow:
+                0 10px 30px rgba(0,0,0,.08);
+        }
+
+        h1{
+
+            color:#2F4439;
+
+            margin-top:0;
+
+            font-size:32px;
+        }
+
+        .success{
+
+            width:70px;
+
+            height:70px;
+
+            border-radius:50%;
+
+            background:#2F4439;
+
+            color:white;
+
+            display:flex;
+
+            align-items:center;
+
+            justify-content:center;
+
+            font-size:36px;
+
+            margin-bottom:24px;
+        }
+
+        .info{
+
+            margin-top:24px;
+        }
+
+        .item{
+
+            padding:16px 0;
+
+            border-bottom:
+                1px solid #ECECEC;
+        }
+
+        .label{
+
+            color:#888;
+
+            font-size:14px;
+
+            margin-bottom:4px;
+        }
+
+        .value{
+
+            font-size:18px;
+
+            color:#1B1F1B;
+
+            font-weight:600;
+        }
+
+        .alert{
+
+            margin-top:28px;
+
+            background:#F5F7F4;
+
+            border-radius:14px;
+
+            padding:18px;
+
+            color:#4A4F47;
+
+            line-height:1.6;
+        }
+
+        .btn{
+
+            margin-top:32px;
+
+            display:inline-block;
+
+            background:#2F4439;
+
+            color:white;
+
+            padding:16px 24px;
+
+            border-radius:999px;
+
+            text-decoration:none;
+
+            font-weight:bold;
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+    <div class="card">
+
+        <div class="success">
+
+            ✓
+
+        </div>
+
+        <h1>
+
+            Agendamento confirmado
+
+        </h1>
+
+        <p>
+
+            Seu horário foi reservado com sucesso.
+
+        </p>
+
+        <div class="info">
+
+            <div class="item">
+
+                <div class="label">
+                    Cliente
+                </div>
+
+                <div class="value">
+                    {{ cliente.nome }}
+                </div>
+
+            </div>
+
+            <div class="item">
+
+                <div class="label">
+                    Serviço
+                </div>
+
+                <div class="value">
+                    {{ servico.nome }}
+                </div>
+
+            </div>
+
+            <div class="item">
+
+                <div class="label">
+                    Data
+                </div>
+
+                <div class="value">
+                    {{ data_inicio|date:"d/m/Y" }}
+                </div>
+
+            </div>
+
+            <div class="item">
+
+                <div class="label">
+                    Horário
+                </div>
+
+                <div class="value">
+                    {{ data_inicio|date:"H:i" }}
+                </div>
+
+            </div>
+            
+            <div class="item">
+
+                <div class="label">
+                    Endereço
+                </div>
+
+                <div class="value">
+                    {{ endereco }}
+                 </div>
+
+            </div>
+
+        </div>
+
+        <div class="alert">
+
+            Tire um print desta tela para lembrar
+            do seu atendimento 💅
+
+        </div>
+
+        <a
+            href="/agendar/"
+            class="btn"
+        >
+
+            Fazer novo agendamento
+
+        </a>
+
+    </div>
+
+</body>
+
+</html>
