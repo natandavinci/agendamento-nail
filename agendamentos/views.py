@@ -191,3 +191,35 @@ def datas_bloqueadas(request):
         datas,
         safe=False
     )
+
+def dashboard(request):
+
+    hoje = datetime.now().date()
+
+    agendamentos = Agendamento.objects.filter(
+
+        data_inicio__date__gte=hoje
+
+    ).order_by('data_inicio')
+
+    total_hoje = Agendamento.objects.filter(
+
+        data_inicio__date=hoje,
+        status='CONFIRMADO'
+
+    ).count()
+
+    return render(
+
+        request,
+
+        'agendamentos/dashboard.html',
+
+        {
+
+            'agendamentos': agendamentos,
+
+            'total_hoje': total_hoje,
+
+        }
+    )

@@ -2,7 +2,8 @@ from django.urls import path
 from .views import (
     agendar,
     horarios_disponiveis,
-    datas_bloqueadas
+    datas_bloqueadas,
+    dashboard
 )
 
 urlpatterns = [
@@ -18,9 +19,18 @@ urlpatterns = [
         horarios_disponiveis,
         name='horarios_disponiveis'
     ),
+
     path(
     'datas-bloqueadas/',
     datas_bloqueadas,
     name='datas_bloqueadas'
-),
+    ),
+
+    path(
+        'dashboard/',
+        dashboard,
+        name='dashboard'
+    ),
+
+    
 ]
