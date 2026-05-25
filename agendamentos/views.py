@@ -3,6 +3,7 @@ from django.shortcuts import render, redirect
 from django.db.models import Q
 from .forms import AgendamentoForm
 from django.http import JsonResponse
+from django.utils.dateparse import parse_date
 from .models import (
     Agendamento,
     Cliente
@@ -196,11 +197,41 @@ def dashboard(request):
 
     hoje = datetime.now().date()
 
-    agendamentos = Agendamento.objects.filter(
+    data_filtro = request.GET.get('data')
 
-        data_inicio__date__gte=hoje
+    mes_filtro = request.GET.get('mes')
 
-    ).order_by('data_inicio')
+    agendamentos = Agendamento.objects.all()
+
+    if data_filtro:
+
+        data = parse_date(data_filtro)
+
+        agendamentos = agendamentos.filter(
+
+            data_inicio__date=data
+        )
+
+    elif mes_filtro:
+
+        ano, mes = mes_filtro.split('-')
+
+        agendamentos = agendamentos.filter(
+
+            data_inicio__year=ano,
+            data_inicio__month=mes
+        )
+
+    else:
+
+        agendamentos = agendamentos.filter(
+
+            data_inicio__date__gte=hoje
+        )
+
+    agendamentos = agendamentos.order_by(
+        'data_inicio'
+    )
 
     total_hoje = Agendamento.objects.filter(
 
@@ -223,3 +254,37 @@ def dashboard(request):
 
         }
     )
+
+def cancelar_agendamento(
+
+    request,
+    agendamento_id
+
+):
+
+    agendamento = Agendamento.objects.get(
+
+        id=agendamento_id
+    )
+
+    agendamento.status = 'CANCELADO'
+
+    agendamento.save()
+
+    return redirect('/dashboard/')
+
+def excluir_agendamento(
+
+    request,
+    agendamento_id
+
+):
+
+    agendamento = Agendamento.objects.get(
+
+        id=agendamento_id
+    )
+
+    agendamento.delete()
+
+    return redirect('/dashboard/')

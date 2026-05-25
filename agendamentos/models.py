@@ -40,11 +40,15 @@ class Cliente(models.Model):
 #AGENDAMENTO
 class Agendamento(models.Model):
 
-    STATUS = (
-        ('PENDENTE', 'Pendente'),
+    STATUS_CHOICES = [
+
         ('CONFIRMADO', 'Confirmado'),
+
+        ('CONCLUIDO', 'Concluído'),
+
         ('CANCELADO', 'Cancelado'),
-    )
+
+    ]
 
     cliente = models.ForeignKey(
         Cliente,
@@ -61,15 +65,12 @@ class Agendamento(models.Model):
     data_fim = models.DateTimeField()
 
     status = models.CharField(
-        max_length=20,
-        choices=STATUS,
-        default='PENDENTE'
-    )
 
-    google_event_id = models.CharField(
-        max_length=255,
-        blank=True,
-        null=True
+        max_length=20,
+
+        choices=STATUS_CHOICES,
+
+        default='CONFIRMADO'
     )
 
     criado_em = models.DateTimeField(
@@ -77,4 +78,8 @@ class Agendamento(models.Model):
     )
 
     def __str__(self):
-        return f'{self.cliente} - {self.data_inicio}'
+
+        return (
+            f'{self.cliente.nome} - '
+            f'{self.data_inicio}'
+        )

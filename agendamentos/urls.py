@@ -3,7 +3,9 @@ from .views import (
     agendar,
     horarios_disponiveis,
     datas_bloqueadas,
-    dashboard
+    dashboard,
+    cancelar_agendamento,
+    excluir_agendamento
 )
 
 urlpatterns = [
@@ -32,5 +34,25 @@ urlpatterns = [
         name='dashboard'
     ),
 
+    path(
+
+        'cancelar/<int:agendamento_id>/',
+
+        cancelar_agendamento,
+
+        name='cancelar_agendamento'
+
+    ),
+
+    path(
+
+        'excluir/<int:agendamento_id>/',
+
+        excluir_agendamento,
+
+        name='excluir_agendamento'
+
+    ),
+
     
-]
+    ]
