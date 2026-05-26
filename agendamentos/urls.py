@@ -5,7 +5,8 @@ from .views import (
     datas_bloqueadas,
     dashboard,
     cancelar_agendamento,
-    concluir_agendamento
+    concluir_agendamento,
+    gerar_pdf_agendamentos
 )
 
 urlpatterns = [
@@ -43,7 +44,7 @@ urlpatterns = [
         name='cancelar_agendamento'
 
     ),
-    
+
     path(
 
     'concluir/<int:agendamento_id>/',
@@ -52,7 +53,17 @@ urlpatterns = [
 
     name='concluir_agendamento'
 
-),
+    ),
+
+    path(
+
+        'dashboard/pdf/',
+
+        gerar_pdf_agendamentos,
+
+        name='gerar_pdf_agendamentos'
+
+    ),
 
     
     ]

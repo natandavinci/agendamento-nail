@@ -308,28 +308,10 @@
     font-weight:bold;
 }
 
-.delete-btn{
-
-    background:#1B1F1B;
-
-    color:white;
-
-    padding:10px 16px;
-
-    border-radius:999px;
-
-    text-decoration:none;
-
-    font-size:14px;
-
-    font-weight:bold;
-
-    margin-left:10px;
-}
 
 .confirm-btn{
 
-    background:#2F4439;
+    background:#05582d;
 
     color:white;
 
@@ -387,6 +369,35 @@
 
     color:white;
 }
+.pdf-btn{
+
+    display:inline-flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    background:#170252;
+
+    color:white;
+
+    padding:12px 5px;
+
+    border-radius:999px;
+
+    text-decoration:none;
+
+    font-weight:bold;
+
+
+    transition:.2s;
+}
+
+.pdf-btn:hover{
+
+    opacity:.9;
+}
+
 </style>
 </head> <body>
 <div class="container">
@@ -487,6 +498,19 @@
         Cancelados
     </a>
 
+    <a
+
+    href="/dashboard/pdf/?data={{ request.GET.data }}"
+
+    class="pdf-btn"
+
+    target="_blank"
+>
+
+    Gerar PDF do Dia
+
+</a>
+
 </div>
 
     <div class="agenda">
@@ -547,19 +571,20 @@
 
         </a>
 
+    
+
+        <a
+
+            href="/concluir/{{ agendamento.id }}/"
+
+            class="confirm-btn"
+
+        >
+
+            Concluir
+
+        </a>
     {% endif %}
-
-   <a
-
-    href="/concluir/{{ agendamento.id }}/"
-
-    class="confirm-btn"
-
->
-
-    Concluir
-
-</a>
 
 </div>
       {% endfor %}              

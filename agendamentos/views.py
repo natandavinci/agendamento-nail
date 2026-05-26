@@ -12,6 +12,140 @@ from .utils import (
     gerar_horarios,
     obter_datas_lotadas
 )
+#PDF
+from django.http import HttpResponse
+
+from reportlab.platypus import (
+    SimpleDocTemplate,
+    Table,
+    TableStyle,
+    Paragraph,
+    Spacer
+)
+
+from reportlab.lib import colors
+
+from reportlab.lib.styles import getSampleStyleSheet
+
+from reportlab.lib.pagesizes import A4
+
+from reportlab.platypus.flowables import PageBreak
+
+from django.utils.dateparse import parse_date
+
+
+def gerar_pdf_agendamentos(request):
+
+    data_filtro = request.GET.get('data')
+
+    if not data_filtro:
+
+        return HttpResponse(
+            'Selecione uma data.'
+        )
+
+    data = parse_date(data_filtro)
+
+    agendamentos = Agendamento.objects.filter(
+
+        data_inicio__date=data,
+        status='CONFIRMADO'
+
+    ).order_by('data_inicio')
+
+    response = HttpResponse(
+        content_type='application/pdf'
+    )
+
+    response['Content-Disposition'] = (
+        f'attachment; '
+        f'filename="agendamentos-{data}.pdf"'
+    )
+
+    doc = SimpleDocTemplate(
+        response,
+        pagesize=A4,
+        rightMargin=30,
+        leftMargin=30,
+        topMargin=30,
+        bottomMargin=18,
+    )
+
+    elementos = []
+
+    styles = getSampleStyleSheet()
+
+    titulo = Paragraph(
+
+        f'Lista de Agendamentos - '
+        f'{data.strftime("%d/%m/%Y")}',
+
+        styles['Title']
+    )
+
+    elementos.append(titulo)
+
+    elementos.append(Spacer(1, 20))
+
+    dados = [
+        [
+            'Horário',
+            'Cliente',
+            'Telefone',
+            'Serviço'
+        ]
+    ]
+
+    for agendamento in agendamentos:
+
+        dados.append([
+
+            agendamento.data_inicio.strftime('%H:%M'),
+
+            agendamento.cliente.nome,
+            
+            agendamento.cliente.telefone,
+
+            agendamento.servico.nome,
+        ])
+
+    tabela = Table(
+        dados,
+        colWidths=[80, 180, 140, 120]
+    )
+
+    tabela.setStyle(TableStyle([
+
+        ('BACKGROUND', (0, 0), (-1, 0), colors.HexColor('#2F4439')),
+
+        ('TEXTCOLOR', (0, 0), (-1, 0), colors.white),
+
+        ('FONTNAME', (0, 0), (-1, 0), 'Helvetica-Bold'),
+
+        ('FONTSIZE', (0, 0), (-1, -1), 10),
+
+        ('BOTTOMPADDING', (0, 0), (-1, 0), 12),
+
+        ('BACKGROUND', (0, 1), (-1, -1), colors.white),
+
+        ('GRID', (0, 0), (-1, -1), 1, colors.HexColor('#E5E5E5')),
+
+        ('ROWBACKGROUNDS', (0, 1), (-1, -1), [
+            colors.white,
+            colors.HexColor('#F8F8F8')
+        ]),
+
+        ('VALIGN', (0, 0), (-1, -1), 'MIDDLE'),
+
+    ]))
+
+    elementos.append(tabela)
+
+    doc.build(elementos)
+
+    return response
+
+#AGENDAR
 
 def agendar(request):
 
