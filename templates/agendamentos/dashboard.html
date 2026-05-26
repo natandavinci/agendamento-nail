@@ -345,6 +345,48 @@
 
     margin-left:10px;
 }
+
+.status-filtros{
+
+    display:flex;
+
+    gap:12px;
+
+    margin-bottom:24px;
+
+    flex-wrap:wrap;
+}
+
+.filtro-btn{
+
+    background:white;
+
+    color:#2F4439;
+
+    padding:12px 18px;
+
+    border-radius:999px;
+
+    text-decoration:none;
+
+    font-weight:bold;
+
+    border:1px solid #DDD;
+
+    transition:.2s;
+}
+
+.filtro-btn:hover{
+
+    background:#F5F5F5;
+}
+
+.filtro-btn.ativo{
+
+    background:#2F4439;
+
+    color:white;
+}
 </style>
 </head> <body>
 <div class="container">
@@ -407,11 +449,51 @@
 
 </form>
 
+<div class="status-filtros">
+
+    <a
+        href="/dashboard/?status=CONFIRMADO"
+        class="
+            filtro-btn
+            {% if status_atual == 'CONFIRMADO' %}
+                ativo
+            {% endif %}
+        "
+    >
+        Confirmados
+    </a>
+
+    <a
+        href="/dashboard/?status=CONCLUIDO"
+        class="
+            filtro-btn
+            {% if status_atual == 'CONCLUIDO' %}
+                ativo
+            {% endif %}
+        "
+    >
+        Concluídos
+    </a>
+
+    <a
+        href="/dashboard/?status=CANCELADO"
+        class="
+            filtro-btn
+            {% if status_atual == 'CANCELADO' %}
+                ativo
+            {% endif %}
+        "
+    >
+        Cancelados
+    </a>
+
+</div>
+
     <div class="agenda">
 
         <h2>
 
-            Próximos atendimentos
+            {{ titulo }}
 
         </h2>
 

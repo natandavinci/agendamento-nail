@@ -201,8 +201,13 @@ def dashboard(request):
 
     mes_filtro = request.GET.get('mes')
 
+    status = request.GET.get(
+        'status',
+        'CONFIRMADO'
+    )
+
     agendamentos = Agendamento.objects.filter(
-        status='CONFIRMADO'
+        status=status
     )
 
     if data_filtro:
@@ -242,6 +247,15 @@ def dashboard(request):
 
     ).count()
 
+    titulo = 'Próximos atendimentos'
+
+    if status == 'CONCLUIDO':
+
+        titulo = 'Atendimentos concluídos'
+
+    elif status == 'CANCELADO':
+
+        titulo = 'Atendimentos cancelados'
     return render(
 
         request,
@@ -253,6 +267,10 @@ def dashboard(request):
             'agendamentos': agendamentos,
 
             'total_hoje': total_hoje,
+
+            'status_atual': status,
+
+            'titulo': titulo,
 
         }
     )
