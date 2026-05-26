@@ -201,7 +201,9 @@ def dashboard(request):
 
     mes_filtro = request.GET.get('mes')
 
-    agendamentos = Agendamento.objects.all()
+    agendamentos = Agendamento.objects.filter(
+        status='CONFIRMADO'
+    )
 
     if data_filtro:
 
@@ -286,5 +288,17 @@ def excluir_agendamento(
     )
 
     agendamento.delete()
+
+    return redirect('/dashboard/')
+
+def concluir_agendamento(request, agendamento_id):
+
+    agendamento = Agendamento.objects.get(
+        id=agendamento_id
+    )
+
+    agendamento.status = 'CONCLUIDO'
+
+    agendamento.save()
 
     return redirect('/dashboard/')

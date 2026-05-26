@@ -326,6 +326,25 @@
 
     margin-left:10px;
 }
+
+.confirm-btn{
+
+    background:#2F4439;
+
+    color:white;
+
+    padding:10px 16px;
+
+    border-radius:999px;
+
+    text-decoration:none;
+
+    font-size:14px;
+
+    font-weight:bold;
+
+    margin-left:10px;
+}
 </style>
 </head> <body>
 <div class="container">
@@ -448,20 +467,17 @@
 
     {% endif %}
 
-    <a
+   <a
 
-        href="/excluir/{{ agendamento.id }}/"
+    href="/concluir/{{ agendamento.id }}/"
 
-        class="delete-btn"
+    class="confirm-btn"
 
-        onclick="return confirm(
-            'Deseja realmente excluir este agendamento?'
-        )"
-    >
+>
 
-        Excluir
+    Concluir
 
-    </a>
+</a>
 
 </div>
       {% endfor %}              
