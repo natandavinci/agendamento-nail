@@ -130,12 +130,7 @@
                         Data
                     </label>
 
-                    <input
-                        type="text"
-                        name="data"
-                        id="id_data"
-                        required
-                    >
+                    {{ form.data }}
                     {{ form.data.errors }}
 
                 </div>
@@ -190,7 +185,7 @@
     async function carregarHorarios(data) {
 
         const response = await fetch(
-            `/agendar/horarios/?data=${data}`
+            `horarios/?data=${data}`
         )
 
         const horarios =
@@ -223,7 +218,7 @@
     async function iniciarCalendario() {
 
         const response = await fetch(
-            '/agendar/datas-bloqueadas/'
+            '/datas-bloqueadas/'
         )
 
         const datasBloqueadas =
