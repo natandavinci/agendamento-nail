@@ -177,6 +177,47 @@
         .servicos-btn{
             margin-top:20px;
         }
+
+        /* GALERIA */
+
+        .galeria{
+            padding:80px 20px;
+            background:var(--branco);
+            display:flex;
+            justify-content:center;
+        }
+
+        .galeria-conteudo{
+            max-width:1000px;
+            width:100%;
+            text-align:center;
+        }
+
+        .galeria-grid{
+            display:grid;
+            grid-template-columns:repeat(3, 1fr);
+            gap:16px;
+            margin-top:40px;
+        }
+
+        .galeria-grid img{
+            width:100%;
+            height:260px;
+            object-fit:cover;
+            border-radius:16px;
+            transition:.2s;
+        }
+
+        .galeria-grid img:hover{
+            opacity:0.85;
+        }
+
+        @media(max-width:768px){
+
+            .galeria-grid{
+                grid-template-columns:repeat(2, 1fr);
+            }
+        }
     </style>
 
 </head>
@@ -265,6 +306,26 @@
             <a href="{% url 'agendar' %}" class="hero-btn servicos-btn">
                 Agende um Horário
             </a>
+
+        </div>
+    </section>
+
+    <!-- GALERIA -->
+    <section class="galeria">
+        <div class="galeria-conteudo">
+
+            <h2 class="sobre-titulo">Galeria</h2>
+
+            <div class="galeria-grid">
+
+                <img src="{% static 'agendamentos/images/galeria/foto1.jpg' %}" alt="Trabalho realizado - Eduarda Costa Nail Design">
+                <img src="{% static 'agendamentos/images/galeria/foto2.jpg' %}" alt="Trabalho realizado - Eduarda Costa Nail Design">
+                <img src="{% static 'agendamentos/images/galeria/foto3.jpg' %}" alt="Trabalho realizado - Eduarda Costa Nail Design">
+                <img src="{% static 'agendamentos/images/galeria/foto4.jpg' %}" alt="Trabalho realizado - Eduarda Costa Nail Design">
+                <img src="{% static 'agendamentos/images/galeria/foto5.jpg' %}" alt="Trabalho realizado - Eduarda Costa Nail Design">
+                <img src="{% static 'agendamentos/images/galeria/foto6.jpg' %}" alt="Trabalho realizado - Eduarda Costa Nail Design">
+
+            </div>
 
         </div>
     </section>
