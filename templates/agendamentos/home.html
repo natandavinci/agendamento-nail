@@ -218,7 +218,58 @@
                 grid-template-columns:repeat(2, 1fr);
             }
         }
-        
+
+        /* DEPOIMENTOS */
+
+        .depoimentos{
+            padding:80px 20px;
+            display:flex;
+            justify-content:center;
+        }
+
+        .depoimentos-conteudo{
+            max-width:1000px;
+            width:100%;
+            text-align:center;
+        }
+
+        .depoimentos-grid{
+            display:grid;
+            grid-template-columns:repeat(2, 1fr);
+            gap:24px;
+            margin-top:40px;
+            text-align:left;
+        }
+
+        .depoimento-card{
+            background:var(--branco);
+            padding:32px;
+            border-radius:20px;
+            box-shadow:0 6px 20px rgba(0,0,0,.06);
+            position:relative;
+        }
+
+        .depoimento-texto{
+            font-size:15px;
+            line-height:1.7;
+            color:var(--texto);
+            font-style:italic;
+            margin-bottom:16px;
+        }
+
+        .depoimento-nome{
+            font-weight:bold;
+            color:var(--marrom-escuro);
+            font-size:14px;
+        }
+
+        @media(max-width:768px){
+
+            .depoimentos-grid{
+                grid-template-columns:1fr;
+            }
+        }
+
     </style>
 
 </head>
@@ -325,6 +376,47 @@
                 <img src="{% static 'agendamentos/images/galeria/foto4.jpg' %}" alt="Trabalho realizado - Eduarda Costa Nail Design">
                 <img src="{% static 'agendamentos/images/galeria/foto5.jpg' %}" alt="Trabalho realizado - Eduarda Costa Nail Design">
                 <img src="{% static 'agendamentos/images/galeria/foto6.jpg' %}" alt="Trabalho realizado - Eduarda Costa Nail Design">
+
+            </div>
+
+        </div>
+    </section>
+
+    <!-- DEPOIMENTOS -->
+    <section class="depoimentos">
+        <div class="depoimentos-conteudo">
+
+            <h2 class="sobre-titulo">Depoimentos</h2>
+
+            <div class="depoimentos-grid">
+
+                <div class="depoimento-card">
+                    <p class="depoimento-texto">
+                        "Amei o atendimento, simplesmente perfeito. Trabalho, dedicação e entrega de resultado além do esperado."
+                    </p>
+                    <div class="depoimento-nome">— Yara</div>
+                </div>
+
+                <div class="depoimento-card">
+                    <p class="depoimento-texto">
+                        "Faço minha unha em gel sempre com ela. Tudo muito organizado, higiênico e pontual no atendimento. Faz um excelente trabalho, a unha tem uma durabilidade maravilhosa, o atendimento é perfeito."
+                    </p>
+                    <div class="depoimento-nome">— Milca</div>
+                </div>
+
+                <div class="depoimento-card">
+                    <p class="depoimento-texto">
+                        "Minha unha natural já percebi diferença desde a primeira vez que fiz com você: mais bonita, saudável e se recuperando de um mau procedimento de unha em gel feito por outra pessoa. Hoje minha unha está voltando a ser como era antes e crescendo... tão feliz! Mãos de fada!"
+                    </p>
+                    <div class="depoimento-nome">— Ana Cláudia</div>
+                </div>
+
+                <div class="depoimento-card">
+                    <p class="depoimento-texto">
+                        "Já falei, mas vou falar de novo: amei seu trabalho de verdade. Você é uma excelente profissional, continue sendo sempre essa pessoa, você vai ainda muito longe. Estou encantada com essa perfeição!"
+                    </p>
+                    <div class="depoimento-nome">— Eduarda L.</div>
+                </div>
 
             </div>
 
