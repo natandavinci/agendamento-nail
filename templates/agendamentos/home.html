@@ -270,6 +270,94 @@
             }
         }
 
+        /* CTA */
+
+        .cta{
+            padding:80px 20px;
+            background:var(--marrom-escuro);
+            color:var(--branco);
+            text-align:center;
+        }
+
+        .cta-titulo{
+            font-size:30px;
+            margin-bottom:16px;
+        }
+
+        .cta-texto{
+            font-size:16px;
+            margin-bottom:32px;
+            opacity:.9;
+        }
+
+        /* CONTATO */
+
+        .contato{
+            padding:80px 20px;
+            background:var(--branco);
+            display:flex;
+            justify-content:center;
+        }
+
+        .contato-conteudo{
+            max-width:900px;
+            width:100%;
+            text-align:center;
+        }
+
+        .contato-grid{
+            display:grid;
+            grid-template-columns:repeat(auto-fit, minmax(220px, 1fr));
+            gap:24px;
+            margin-top:40px;
+        }
+
+        .contato-item{
+            background:var(--bege);
+            padding:28px;
+            border-radius:20px;
+            text-decoration:none;
+            color:var(--texto);
+            transition:.2s;
+        }
+
+        a.contato-item:hover{
+            transform:translateY(-4px);
+        }
+
+        .contato-label{
+            font-size:13px;
+            color:var(--marrom-claro);
+            font-weight:bold;
+            text-transform:uppercase;
+            margin-bottom:10px;
+        }
+
+        .contato-valor{
+            font-size:16px;
+            font-weight:bold;
+            color:var(--marrom-escuro);
+            line-height:1.5;
+        }
+
+        /* MAPA */
+
+        .mapa{
+            width:100%;
+            line-height:0;
+        }
+
+        /* RODAPÉ */
+
+        .rodape{
+            background:var(--marrom-escuro);
+            color:var(--branco);
+            text-align:center;
+            padding:24px;
+            font-size:13px;
+            opacity:.85;
+        }
+
     </style>
 
 </head>
@@ -370,12 +458,12 @@
 
             <div class="galeria-grid">
 
-                <img src="{% static 'agendamentos/images/galeria/foto1.jpg' %}" alt="Trabalho realizado - Eduarda Costa Nail Design">
-                <img src="{% static 'agendamentos/images/galeria/foto2.jpg' %}" alt="Trabalho realizado - Eduarda Costa Nail Design">
-                <img src="{% static 'agendamentos/images/galeria/foto3.jpg' %}" alt="Trabalho realizado - Eduarda Costa Nail Design">
-                <img src="{% static 'agendamentos/images/galeria/foto4.jpg' %}" alt="Trabalho realizado - Eduarda Costa Nail Design">
-                <img src="{% static 'agendamentos/images/galeria/foto5.jpg' %}" alt="Trabalho realizado - Eduarda Costa Nail Design">
-                <img src="{% static 'agendamentos/images/galeria/foto6.jpg' %}" alt="Trabalho realizado - Eduarda Costa Nail Design">
+                <img src="{% static 'agendamentos/images/galeria/foto1.jpeg' %}" alt="Trabalho realizado - Eduarda Costa Nail Design">
+                <img src="{% static 'agendamentos/images/galeria/foto2.jpeg' %}" alt="Trabalho realizado - Eduarda Costa Nail Design">
+                <img src="{% static 'agendamentos/images/galeria/foto3.jpeg' %}" alt="Trabalho realizado - Eduarda Costa Nail Design">
+                <img src="{% static 'agendamentos/images/galeria/foto4.jpeg' %}" alt="Trabalho realizado - Eduarda Costa Nail Design">
+                <img src="{% static 'agendamentos/images/galeria/foto5.jpeg' %}" alt="Trabalho realizado - Eduarda Costa Nail Design">
+                <img src="{% static 'agendamentos/images/galeria/foto6.jpeg' %}" alt="Trabalho realizado - Eduarda Costa Nail Design">
 
             </div>
 
@@ -422,6 +510,63 @@
 
         </div>
     </section>
+
+    <!-- CTA -->
+    <section class="cta">
+        <div class="cta-conteudo">
+            <h2 class="cta-titulo">Pronta para cuidar das suas unhas?</h2>
+            <p class="cta-texto">Agende seu horário e garanta seu momento de autocuidado.</p>
+            <a href="{% url 'agendar' %}" class="hero-btn">Agende um Horário</a>
+        </div>
+    </section>
+
+    <!-- CONTATO -->
+    <section class="contato">
+        <div class="contato-conteudo">
+
+            <h2 class="sobre-titulo">Contato</h2>
+
+            <div class="contato-grid">
+
+                <a href="https://wa.me/5588994605946" target="_blank" class="contato-item">
+                    <div class="contato-label">WhatsApp</div>
+                    <div class="contato-valor">(88) 99460-5946</div>
+                </a>
+
+                <a href="https://www.instagram.com/eduarda._nail/" target="_blank" class="contato-item">
+                    <div class="contato-label">Instagram</div>
+                    <div class="contato-valor">@eduarda._nail</div>
+                </a>
+
+                <div class="contato-item">
+                    <div class="contato-label">Endereço</div>
+                    <div class="contato-valor">
+                        Rua Antonio Alves Costa, 525<br>
+                        Zezinho Costa - Várzea Alegre (CE)
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </section>
+
+    <!-- MAPA -->
+    <section class="mapa">
+        <iframe
+            src="https://www.google.com/maps?q=Rua+Antonio+Alves+Costa,+525,+Zezinho+Costa,+Várzea+Alegre,+CE&output=embed"
+            width="100%"
+            height="400"
+            style="border:0;"
+            allowfullscreen=""
+            loading="lazy">
+        </iframe>
+    </section>
+
+    <!-- RODAPÉ -->
+    <footer class="rodape">
+        <p>&copy; {% now "Y" %} Eduarda Costa Nail Design. Todos os direitos reservados.</p>
+    </footer>
 
 
 </body>
