@@ -1,5 +1,6 @@
 from django.urls import path
 from .views import (
+    home,
     agendar,
     horarios_disponiveis,
     datas_bloqueadas,
@@ -13,6 +14,12 @@ urlpatterns = [
 
     path(
         '',
+        home,
+        name='home'
+    ),
+
+    path(
+        'agendar/',
         agendar,
         name='agendar'
     ),
@@ -24,9 +31,9 @@ urlpatterns = [
     ),
 
     path(
-    'datas-bloqueadas/',
-    datas_bloqueadas,
-    name='datas_bloqueadas'
+        'datas-bloqueadas/',
+        datas_bloqueadas,
+        name='datas_bloqueadas'
     ),
 
     path(
@@ -36,34 +43,21 @@ urlpatterns = [
     ),
 
     path(
-
         'cancelar/<int:agendamento_id>/',
-
         cancelar_agendamento,
-
         name='cancelar_agendamento'
-
     ),
 
     path(
-
-    'concluir/<int:agendamento_id>/',
-
-    concluir_agendamento,
-
-    name='concluir_agendamento'
-
+        'concluir/<int:agendamento_id>/',
+        concluir_agendamento,
+        name='concluir_agendamento'
     ),
 
     path(
-
         'dashboard/pdf/',
-
         gerar_pdf_agendamentos,
-
         name='gerar_pdf_agendamentos'
-
     ),
 
-    
-    ]
+]
