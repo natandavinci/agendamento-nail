@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Eduarda Costa Nail Design</title>
+
+    <style>
+
+        :root{
+            --marrom-escuro:#4A2C1D;
+            --marrom:#6B4226;
+            --marrom-claro:#A97C50;
+            --bege:#F5EFE6;
+            --texto:#2B2118;
+            --branco:#FFFFFF;
+        }
+
+        *{
+            margin:0;
+            padding:0;
+            box-sizing:border-box;
+            font-family:Arial, sans-serif;
+        }
+
+        body{
+            background:var(--bege);
+            color:var(--texto);
+        }
+
+        /* HERO */
+
+        .hero{
+            position:relative;
+            min-height:90vh;
+            display:flex;
+            align-items:center;
+            justify-content:center;
+            text-align:center;
+            background:
+                linear-gradient(
+                    rgba(74,44,29,0.55),
+                    rgba(74,44,29,0.55)
+                ),
+                /* TODO url('{% static "agendamentos/images/hero.jpg" %}') center/cover no-repeat;*/
+                url('https://via.placeholder.com/1600x900/6B4226/6B4226') center/cover no-repeat;
+            padding:0 20px;
+        }
+
+        .hero-conteudo{
+            max-width:700px;
+            color:var(--branco);
+        }
+
+        .hero-nome{
+            font-size:20px;
+            letter-spacing:2px;
+            text-transform:uppercase;
+            margin-bottom:16px;
+            opacity:0.9;
+        }
+
+        .hero-titulo{
+            font-size:48px;
+            font-weight:bold;
+            line-height:1.2;
+            margin-bottom:20px;
+        }
+
+        .hero-subtitulo{
+            font-size:18px;
+            margin-bottom:36px;
+            opacity:0.95;
+        }
+
+        .hero-btn{
+            display:inline-block;
+            background:var(--marrom-claro);
+            color:var(--branco);
+            padding:16px 36px;
+            border-radius:999px;
+            text-decoration:none;
+            font-weight:bold;
+            font-size:16px;
+            transition:.2s;
+        }
+
+        .hero-btn:hover{
+            background:var(--marrom-escuro);
+        }
+
+        @media(max-width:768px){
+
+            .hero-titulo{
+                font-size:32px;
+            }
+
+            .hero-subtitulo{
+                font-size:16px;
+            }
+        }
+
+    </style>
+</head>
+<body>
+
+    <section class="hero">
+        <div class="hero-conteudo">
+
+            <div class="hero-nome">
+                Eduarda Costa Nail Design
+            </div>
+
+            <h1 class="hero-titulo">
+                Suas unhas perfeitas e em grande estilo!
+            </h1>
+
+            <p class="hero-subtitulo">
+                Cuidado, técnica e delicadeza em cada detalhe, para você se sentir ainda mais confiante.
+            </p>
+
+            <a href="{% url 'agendar' %}" class="hero-btn">
+                Agende um Horário
+            </a>
+
+        </div>
+    </section>
+
+    <!-- próximas seções virão aqui: Sobre o Studio, Sobre a Profissional, Serviços... -->
+
+</body>
+</html>
