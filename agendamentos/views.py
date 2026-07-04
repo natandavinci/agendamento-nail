@@ -7,7 +7,8 @@ from django.utils.dateparse import parse_date
 from django.contrib.auth.decorators import login_required
 from .models import (
     Agendamento,
-    Cliente
+    Cliente,
+    Servico
 )
 from .utils import (
     gerar_horarios,
@@ -460,3 +461,14 @@ def concluir_agendamento(request, agendamento_id):
 
     return redirect('/dashboard/')
 
+def home(request):
+
+    servicos = Servico.objects.all()
+
+    return render(
+        request,
+        'agendamentos/home.html',
+        {
+            'servicos': servicos
+        }
+    )

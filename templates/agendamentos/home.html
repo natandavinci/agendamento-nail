@@ -100,8 +100,87 @@
             }
         }
 
+        /* SOBRE */
+
+        .sobre{
+            padding:80px 20px;
+            display:flex;
+            justify-content:center;
+        }
+
+        .sobre-alt{
+            background:var(--branco);
+        }
+
+        .sobre-conteudo{
+            max-width:700px;
+            text-align:center;
+        }
+
+        .sobre-titulo{
+            font-size:32px;
+            color:var(--marrom-escuro);
+            margin-bottom:24px;
+        }
+
+        .sobre-texto{
+            font-size:16px;
+            line-height:1.8;
+            color:var(--texto);
+        }
+        /* SERVIÇOS */
+
+        .servicos{
+            padding:80px 20px;
+            display:flex;
+            justify-content:center;
+        }
+
+        .servicos-conteudo{
+            max-width:900px;
+            text-align:center;
+            width:100%;
+        }
+
+        .servicos-grid{
+            display:grid;
+            grid-template-columns:repeat(auto-fit, minmax(200px, 1fr));
+            gap:20px;
+            margin:40px 0;
+        }
+
+        .servico-card{
+            background:var(--branco);
+            padding:32px 20px;
+            border-radius:20px;
+            box-shadow:0 6px 20px rgba(0,0,0,.06);
+            transition:.2s;
+        }
+
+        .servico-card:hover{
+            transform:translateY(-4px);
+        }
+
+        .servico-nome{
+            font-size:17px;
+            font-weight:bold;
+            color:var(--marrom-escuro);
+            margin-bottom:12px;
+        }
+
+        .servico-preco{
+            font-size:24px;
+            font-weight:bold;
+            color:var(--marrom-claro);
+        }
+
+        .servicos-btn{
+            margin-top:20px;
+        }
     </style>
+
 </head>
+
 <body>
 
     <section class="hero">
@@ -126,7 +205,70 @@
         </div>
     </section>
 
-    <!-- próximas seções virão aqui: Sobre o Studio, Sobre a Profissional, Serviços... -->
+   <!-- SOBRE O STUDIO -->
+    <section class="sobre">
+        <div class="sobre-conteudo">
+            <h2 class="sobre-titulo">Sobre o Studio</h2>
+            <p class="sobre-texto">
+                O Eduarda Costa Nail Design é um espaço pensado para oferecer
+                conforto, higiene e exclusividade em cada atendimento.
+                Localizado em Várzea Alegre (CE), o studio conta com uma
+                estrutura preparada para receber você com toda atenção que
+                merece, unindo técnica apurada e um ambiente acolhedor do
+                início ao fim do seu horário.
+            </p>
+        </div>
+    </section>
+
+    <!-- SOBRE A PROFISSIONAL -->
+    <section class="sobre sobre-alt">
+        <div class="sobre-conteudo">
+            <h2 class="sobre-titulo">Sobre a Profissional</h2>
+            <p class="sobre-texto">
+                Sou Eduarda Costa, especialista em nail design com foco em
+                técnicas modernas e acabamento impecável. Ao longo da minha
+                trajetória, venho aperfeiçoando cada detalhe do meu trabalho
+                para oferecer um atendimento verdadeiramente personalizado —
+                que respeita o estilo, a rotina e as preferências de cada
+                cliente.
+                <br><br>
+                Mais do que cuidar das suas unhas, meu compromisso é
+                proporcionar uma experiência de autocuidado com técnica,
+                elegância e atenção aos mínimos detalhes.
+            </p>
+        </div>
+    </section>
+
+    <!-- SERVIÇOS -->
+    <section class="servicos">
+        <div class="servicos-conteudo">
+
+            <h2 class="sobre-titulo">Serviços</h2>
+
+            <div class="servicos-grid">
+
+                {% for servico in servicos %}
+
+                    <div class="servico-card">
+                        <div class="servico-nome">
+                            {{ servico.nome }}
+                        </div>
+                        <div class="servico-preco">
+                            R$ {{ servico.preco }}
+                        </div>
+                    </div>
+
+                {% endfor %}
+
+            </div>
+
+            <a href="{% url 'agendar' %}" class="hero-btn servicos-btn">
+                Agende um Horário
+            </a>
+
+        </div>
+    </section>
+
 
 </body>
 </html>
