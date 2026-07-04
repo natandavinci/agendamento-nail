@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login | Studio Nail Design</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Arial, sans-serif;
+        }
+
+        body {
+            background-color: #f5f0ec;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+        }
+
+        .login-box {
+            background: #fff;
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            width: 100%;
+            max-width: 360px;
+        }
+
+        .login-box h1 {
+            color: #6b4226;
+            font-size: 22px;
+            margin-bottom: 8px;
+            text-align: center;
+        }
+
+        .login-box p.subtitulo {
+            color: #999;
+            font-size: 13px;
+            text-align: center;
+            margin-bottom: 24px;
+        }
+
+        .erro {
+            background: #fde8e8;
+            color: #c0392b;
+            padding: 10px 14px;
+            border-radius: 6px;
+            font-size: 13px;
+            margin-bottom: 16px;
+            text-align: center;
+        }
+
+        label {
+            display: block;
+            font-size: 13px;
+            color: #6b4226;
+            margin-bottom: 6px;
+            margin-top: 14px;
+        }
+
+        input[type="text"],
+        input[type="password"] {
+            width: 100%;
+            padding: 10px 12px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            font-size: 14px;
+            outline: none;
+        }
+
+        input[type="text"]:focus,
+        input[type="password"]:focus {
+            border-color: #a97c50;
+        }
+
+        button {
+            width: 100%;
+            margin-top: 24px;
+            padding: 12px;
+            background-color: #6b4226;
+            color: #fff;
+            border: none;
+            border-radius: 6px;
+            font-size: 15px;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        button:hover {
+            background-color: #543319;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="login-box">
+        <h1>Studio Nail Design</h1>
+        <p class="subtitulo">Acesso da profissional</p>
+
+        {% if form.errors %}
+            <div class="erro">Usuário ou senha inválidos.</div>
+        {% endif %}
+
+        <form method="post">
+            {% csrf_token %}
+
+            <label for="id_username">Usuário</label>
+            {{ form.username }}
+
+            <label for="id_password">Senha</label>
+            {{ form.password }}
+
+            <button type="submit">Entrar</button>
+        </form>
+    </div>
+
+</body>
+</html>

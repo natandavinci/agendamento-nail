@@ -4,6 +4,7 @@ from django.db.models import Q
 from .forms import AgendamentoForm
 from django.http import JsonResponse
 from django.utils.dateparse import parse_date
+from django.contrib.auth.decorators import login_required
 from .models import (
     Agendamento,
     Cliente
@@ -33,7 +34,7 @@ from reportlab.platypus.flowables import PageBreak
 
 from django.utils.dateparse import parse_date
 
-
+@login_required
 def gerar_pdf_agendamentos(request):
 
     data_filtro = request.GET.get('data')
@@ -327,6 +328,7 @@ def datas_bloqueadas(request):
         safe=False
     )
 
+@login_required
 def dashboard(request):
 
     hoje = datetime.now().date()
@@ -409,6 +411,7 @@ def dashboard(request):
         }
     )
 
+@login_required
 def cancelar_agendamento(
 
     request,
@@ -427,6 +430,7 @@ def cancelar_agendamento(
 
     return redirect('/dashboard/')
 
+@login_required
 def excluir_agendamento(
 
     request,
@@ -443,6 +447,7 @@ def excluir_agendamento(
 
     return redirect('/dashboard/')
 
+@login_required
 def concluir_agendamento(request, agendamento_id):
 
     agendamento = Agendamento.objects.get(
@@ -454,3 +459,4 @@ def concluir_agendamento(request, agendamento_id):
     agendamento.save()
 
     return redirect('/dashboard/')
+
