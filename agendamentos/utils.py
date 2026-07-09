@@ -1,35 +1,49 @@
-from datetime import datetime
+from datetime import datetime, timedelta
+
+from .models import (
+    Agendamento,
+    HorarioPadrao,
+    DiaBloqueado,
+    HorarioBloqueado,
+    HorarioExtra,
+)
 
 
 def gerar_horarios(data):
 
+    # Se o dia inteiro está bloqueado, não há horários
+    dia_bloqueado = DiaBloqueado.objects.filter(
+        data=data
+    ).exists()
+
+    if dia_bloqueado:
+        return []
+
     weekday = data.weekday()
 
-    horarios = []
+    # Horários padrão ativos para esse dia da semana
+    horarios_padrao = HorarioPadrao.objects.filter(
+        dia_semana=weekday,
+        ativo=True
+    ).values_list('horario', flat=True)
 
-    # Segunda a sexta
-    if weekday in [0, 1, 2, 3, 4]:
+    horarios = set(horarios_padrao)
 
-        horarios = [
-            '14:00',
-            '16:00',
-        ]
+    # Remove horários bloqueados pontualmente nessa data
+    bloqueados = HorarioBloqueado.objects.filter(
+        data=data
+    ).values_list('horario', flat=True)
 
-    # Sábado
-    elif weekday == 5:
+    horarios -= set(bloqueados)
 
-        horarios = [
-            '08:00',
-            '10:00',
-            '14:00',
-            '16:00',
-        ]
+    # Adiciona horários extras liberados pontualmente nessa data
+    extras = HorarioExtra.objects.filter(
+        data=data
+    ).values_list('horario', flat=True)
 
-    return horarios
+    horarios |= set(extras)
 
-from datetime import timedelta
-
-from .models import Agendamento
+    return sorted(horarios)
 
 
 def obter_datas_lotadas():
@@ -42,20 +56,17 @@ def obter_datas_lotadas():
 
         data = hoje + timedelta(days=i)
 
-        weekday = data.weekday()
+        horarios = gerar_horarios(data)
 
-        # Domingo
-        if weekday == 6:
+        quantidade_maxima = len(horarios)
+
+        if quantidade_maxima == 0:
 
             datas_lotadas.append(
                 data.strftime('%Y-%m-%d')
             )
 
             continue
-
-        horarios = gerar_horarios(data)
-
-        quantidade_maxima = len(horarios)
 
         agendamentos = Agendamento.objects.filter(
             data_inicio__date=data,

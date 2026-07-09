@@ -5,15 +5,18 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Eduarda Costa Nail Design</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,600;1,500&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
 
     <style>
 
         :root{
-            --marrom-escuro:#4A2C1D;
-            --marrom:#6B4226;
-            --marrom-claro:#A97C50;
-            --bege:#F5EFE6;
-            --texto:#2B2118;
+            --espresso:#3B2417;
+            --cacau:#6B4226;
+            --champagne:#C9A66B;
+            --rosewood:#8B4A45;
+            --marfim:#FBF6EF;
             --branco:#FFFFFF;
         }
 
@@ -21,92 +24,156 @@
             margin:0;
             padding:0;
             box-sizing:border-box;
-            font-family:Arial, sans-serif;
         }
 
         body{
-            background:var(--bege);
-            color:var(--texto);
+            background:var(--marfim);
+            color:var(--espresso);
+            font-family:'Jost', sans-serif;
+            font-weight:400;
+        }
+
+        h1, h2, .hero-nome{
+            font-family:'Playfair Display', serif;
         }
 
         /* HERO */
 
         .hero{
             position:relative;
-            min-height:90vh;
+            min-height:92vh;
             display:flex;
+            flex-direction:column;
             align-items:center;
             justify-content:center;
             text-align:center;
             background:
                 linear-gradient(
-                    rgba(74,44,29,0.55),
-                    rgba(74,44,29,0.55)
+                    180deg,
+                    rgba(59,36,23,0.55) 0%,
+                    rgba(59,36,23,0.72) 100%
                 ),
-
-                url('https://via.placeholder.com/1600x900/6B4226/6B4226') center/cover no-repeat;
+                url('{% static "agendamentos/images/hero.jpeg" %}') center/cover no-repeat;
             padding:0 20px;
+            overflow:hidden;
+        }
+
+        /* fita de amostras de esmalte — elemento assinatura */
+
+        .esmalte-fita{
+            position:absolute;
+            top:40px;
+            display:flex;
+            gap:14px;
+        }
+
+        .esmalte-fita span{
+            width:14px;
+            height:14px;
+            border-radius:50%;
+            box-shadow:0 0 0 3px rgba(255,255,255,0.15);
+            animation:surgir 0.6s ease backwards;
+        }
+
+        .esmalte-fita span:nth-child(1){ animation-delay:.1s; }
+        .esmalte-fita span:nth-child(2){ animation-delay:.2s; }
+        .esmalte-fita span:nth-child(3){ animation-delay:.3s; }
+        .esmalte-fita span:nth-child(4){ animation-delay:.4s; }
+        .esmalte-fita span:nth-child(5){ animation-delay:.5s; }
+
+        @keyframes surgir{
+            from{ opacity:0; transform:translateY(-10px) scale(0.6); }
+            to{ opacity:1; transform:translateY(0) scale(1); }
         }
 
         .hero-conteudo{
             max-width:700px;
             color:var(--branco);
+            animation:subir 0.8s ease backwards;
+            animation-delay:.3s;
+        }
+
+        @keyframes subir{
+            from{ opacity:0; transform:translateY(24px); }
+            to{ opacity:1; transform:translateY(0); }
         }
 
         .hero-nome{
-            font-size:20px;
-            letter-spacing:2px;
+            font-size:18px;
+            letter-spacing:3px;
             text-transform:uppercase;
-            margin-bottom:16px;
+            margin-bottom:20px;
             opacity:0.9;
+            font-weight:500;
         }
 
         .hero-titulo{
-            font-size:48px;
-            font-weight:bold;
-            line-height:1.2;
-            margin-bottom:20px;
+            font-size:52px;
+            font-weight:600;
+            line-height:1.25;
+            margin-bottom:22px;
+            font-style:italic;
         }
 
         .hero-subtitulo{
-            font-size:18px;
-            margin-bottom:36px;
+            font-family:'Jost', sans-serif;
+            font-size:17px;
+            font-weight:300;
+            margin-bottom:40px;
             opacity:0.95;
         }
 
         .hero-btn{
+            position:relative;
             display:inline-block;
-            background:var(--marrom-claro);
-            color:var(--branco);
-            padding:16px 36px;
+            background:var(--champagne);
+            color:var(--espresso);
+            padding:17px 40px;
             border-radius:999px;
             text-decoration:none;
-            font-weight:bold;
-            font-size:16px;
-            transition:.2s;
+            font-weight:600;
+            font-size:15px;
+            letter-spacing:0.5px;
+            overflow:hidden;
+            transition:transform .25s ease, box-shadow .25s ease;
+            box-shadow:0 8px 24px rgba(201,166,107,0.35);
         }
 
         .hero-btn:hover{
-            background:var(--marrom-escuro);
+            transform:translateY(-3px);
+            box-shadow:0 12px 28px rgba(201,166,107,0.5);
+        }
+
+        .hero-btn span{
+            position:relative;
+            z-index:1;
         }
 
         @media(max-width:768px){
 
             .hero-titulo{
-                font-size:32px;
+                font-size:34px;
             }
 
             .hero-subtitulo{
-                font-size:16px;
+                font-size:15px;
             }
         }
 
         /* SOBRE */
 
         .sobre{
-            padding:80px 20px;
+            padding:100px 20px;
             display:flex;
             justify-content:center;
+            opacity:0;
+            transform:translateY(30px);
+            transition:opacity .8s ease, transform .8s ease;
+        }
+
+        .sobre.visivel{
+            opacity:1;
+            transform:translateY(0);
         }
 
         .sobre-alt{
@@ -114,21 +181,54 @@
         }
 
         .sobre-conteudo{
-            max-width:700px;
+            max-width:680px;
             text-align:center;
         }
 
+        .sobre-eyebrow{
+            display:block;
+            font-size:13px;
+            letter-spacing:3px;
+            text-transform:uppercase;
+            color:var(--champagne);
+            font-weight:600;
+            margin-bottom:16px;
+        }
+
         .sobre-titulo{
-            font-size:32px;
-            color:var(--marrom-escuro);
-            margin-bottom:24px;
+            font-size:34px;
+            font-weight:600;
+            font-style:italic;
+            color:var(--espresso);
+            margin-bottom:28px;
         }
 
         .sobre-texto{
             font-size:16px;
-            line-height:1.8;
-            color:var(--texto);
+            line-height:1.9;
+            color:var(--cacau);
+            font-weight:300;
         }
+
+        /* DIVISOR — fita de esmaltes entre seções */
+
+        .divisor-esmalte{
+            display:flex;
+            justify-content:center;
+            gap:16px;
+            padding:0 0 0 0;
+            background:var(--marfim);
+            position:relative;
+            top:1px;
+        }
+
+        .divisor-esmalte span{
+            width:10px;
+            height:10px;
+            border-radius:50% 50% 50% 0;
+            transform:rotate(45deg);
+        }
+
         /* SERVIÇOS */
 
         .servicos{
@@ -366,60 +466,78 @@
 <body>
 
     <section class="hero">
-        <div class="hero-conteudo">
 
-            <div class="hero-nome">
-                Eduarda Costa Nail Design
-            </div>
+    <div class="esmalte-fita">
+        <span style="background:#8B4A45"></span>
+        <span style="background:#C9A66B"></span>
+        <span style="background:#D9A5A0"></span>
+        <span style="background:#6B4226"></span>
+        <span style="background:#E8C4A2"></span>
+    </div>
 
-            <h1 class="hero-titulo">
-                Suas unhas perfeitas e em grande estilo!
-            </h1>
+    <div class="hero-conteudo">
 
-            <p class="hero-subtitulo">
-                Cuidado, técnica e delicadeza em cada detalhe, para você se sentir ainda mais confiante.
-            </p>
+        <div class="hero-nome">Eduarda Costa Nail Design</div>
 
-            <a href="{% url 'agendar' %}" class="hero-btn">
-                Agende um Horário
-            </a>
+        <h1 class="hero-titulo">
+            Suas unhas perfeitas<br>e em grande estilo
+        </h1>
 
-        </div>
-    </section>
+        <p class="hero-subtitulo">
+            Cuidado, técnica e delicadeza em cada detalhe, para você se sentir ainda mais confiante.
+        </p>
+
+        <a href="{% url 'agendar' %}" class="hero-btn">
+            <span>Agende um Horário</span>
+        </a>
+
+    </div>
+
+</section>
 
    <!-- SOBRE O STUDIO -->
-    <section class="sobre">
-        <div class="sobre-conteudo">
-            <h2 class="sobre-titulo">Sobre o Studio</h2>
-            <p class="sobre-texto">
-                O Eduarda Costa Nail Design é um espaço pensado para oferecer
-                conforto, higiene e exclusividade em cada atendimento.
-                Localizado em Várzea Alegre (CE), o studio conta com uma
-                estrutura preparada para receber você com toda atenção que
-                merece, unindo técnica apurada e um ambiente acolhedor do
-                início ao fim do seu horário.
-            </p>
-        </div>
-    </section>
+<section class="sobre">
+    <div class="sobre-conteudo">
+        <span class="sobre-eyebrow">O Espaço</span>
+        <h2 class="sobre-titulo">Sobre o Studio</h2>
+        <p class="sobre-texto">
+            O Eduarda Costa Nail Design é um espaço pensado para oferecer
+            conforto, higiene e exclusividade em cada atendimento.
+            Localizado em Várzea Alegre (CE), o studio conta com uma
+            estrutura preparada para receber você com toda atenção que
+            merece, unindo técnica apurada e um ambiente acolhedor do
+            início ao fim do seu horário.
+        </p>
+    </div>
+</section>
 
-    <!-- SOBRE A PROFISSIONAL -->
-    <section class="sobre sobre-alt">
-        <div class="sobre-conteudo">
-            <h2 class="sobre-titulo">Sobre a Profissional</h2>
-            <p class="sobre-texto">
-                Sou Eduarda Costa, especialista em nail design com foco em
-                técnicas modernas e acabamento impecável. Ao longo da minha
-                trajetória, venho aperfeiçoando cada detalhe do meu trabalho
-                para oferecer um atendimento verdadeiramente personalizado —
-                que respeita o estilo, a rotina e as preferências de cada
-                cliente.
-                <br><br>
-                Mais do que cuidar das suas unhas, meu compromisso é
-                proporcionar uma experiência de autocuidado com técnica,
-                elegância e atenção aos mínimos detalhes.
-            </p>
-        </div>
-    </section>
+<div class="divisor-esmalte">
+    <span style="background:#8B4A45"></span>
+    <span style="background:#C9A66B"></span>
+    <span style="background:#D9A5A0"></span>
+    <span style="background:#6B4226"></span>
+    <span style="background:#E8C4A2"></span>
+</div>
+
+<!-- SOBRE A PROFISSIONAL -->
+<section class="sobre sobre-alt">
+    <div class="sobre-conteudo">
+        <span class="sobre-eyebrow">Quem Faz</span>
+        <h2 class="sobre-titulo">Sobre a Profissional</h2>
+        <p class="sobre-texto">
+            Sou Eduarda Costa, especialista em nail design com foco em
+            técnicas modernas e acabamento impecável. Ao longo da minha
+            trajetória, venho aperfeiçoando cada detalhe do meu trabalho
+            para oferecer um atendimento verdadeiramente personalizado —
+            que respeita o estilo, a rotina e as preferências de cada
+            cliente.
+            <br><br>
+            Mais do que cuidar das suas unhas, meu compromisso é
+            proporcionar uma experiência de autocuidado com técnica,
+            elegância e atenção aos mínimos detalhes.
+        </p>
+    </div>
+</section>
 
     <!-- SERVIÇOS -->
     <section class="servicos">
@@ -571,4 +689,24 @@
 
 
 </body>
+<script>
+
+    const observador = new IntersectionObserver((entradas) => {
+
+        entradas.forEach(entrada => {
+
+            if (entrada.isIntersecting) {
+
+                entrada.target.classList.add('visivel')
+            }
+        })
+
+    }, { threshold: 0.15 })
+
+    document.querySelectorAll('.sobre').forEach(secao => {
+
+        observador.observe(secao)
+    })
+
+</script>
 </html>

@@ -182,10 +182,25 @@
     const selectHorario =
         document.getElementById('id_horario')
 
+    const selectServico =
+        document.getElementById('id_servico')
+
+    let dataSelecionada = null
+
     async function carregarHorarios(data) {
 
+        const servicoId = selectServico.value
+
+        if (!servicoId) {
+
+            selectHorario.innerHTML =
+                '<option>Selecione um serviço primeiro</option>'
+
+            return
+        }
+
         const response = await fetch(
-            `/horarios/?data=${data}`
+            `/horarios/?data=${data}&servico=${servicoId}`
         )
 
         const horarios =
@@ -241,10 +256,20 @@
                 dateStr
             ) {
 
+                dataSelecionada = dateStr
+
                 carregarHorarios(dateStr)
             }
         })
     }
+
+    selectServico.addEventListener('change', function () {
+
+        if (dataSelecionada) {
+
+            carregarHorarios(dataSelecionada)
+        }
+    })
 
     iniciarCalendario()
 

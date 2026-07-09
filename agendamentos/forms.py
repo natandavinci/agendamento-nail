@@ -35,6 +35,18 @@ class AgendamentoForm(forms.Form):
         choices=[]
     )
 
+    horario = forms.ChoiceField(
+        choices=[]
+    )
+
+    def __init__(self, *args, **kwargs):
+
+        super().__init__(*args, **kwargs)
+
+        self.fields['servico'].label_from_instance = (
+            lambda obj: f'{obj.nome} — R$ {obj.preco}'
+        )
+
     # VALIDAÇÃO NOME
 
     def clean_nome(self):

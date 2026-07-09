@@ -168,7 +168,7 @@ def agendar(request):
             data_obj = datetime.strptime(
                 data,
                 '%Y-%m-%d'
-            )
+            ).date()
 
             horarios = gerar_horarios(data_obj)
 
@@ -278,17 +278,26 @@ def agendar(request):
 def horarios_disponiveis(request):
 
     data = request.GET.get('data')
+    servico_id = request.GET.get('servico')
 
-    if not data:
+    if not data or not servico_id:
+
+        return JsonResponse([], safe=False)
+
+    servico = Servico.objects.filter(id=servico_id).first()
+
+    if not servico:
 
         return JsonResponse([], safe=False)
 
     data_obj = datetime.strptime(
         data,
         '%Y-%m-%d'
-    )
+    ).date()
 
     horarios = gerar_horarios(data_obj)
+
+    duracao = timedelta(minutes=servico.duracao)
 
     horarios_livres = []
 
@@ -299,7 +308,7 @@ def horarios_disponiveis(request):
             '%Y-%m-%d %H:%M'
         )
 
-        data_fim = data_inicio + timedelta(hours=2)
+        data_fim = data_inicio + duracao
 
         conflito = Agendamento.objects.filter(
             status='CONFIRMADO'
